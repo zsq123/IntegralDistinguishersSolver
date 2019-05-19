@@ -1,0 +1,10 @@
+﻿  main.cpp
+C:\Users\DELL\Desktop\sat\Sat\Sat\include\cryptominisat5/solvertypesmini.h(129): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
+    正在创建库 C:\Users\DELL\Desktop\test\Release\test.lib 和对象 C:\Users\DELL\Desktop\test\Release\test.exp
+main.obj : error LNK2001: 无法解析的外部符号 "public: class std::vector<class CMSat::lbool,class std::allocator<class CMSat::lbool> > const & __thiscall CMSat::SATSolver::get_model(void)const " (?get_model@SATSolver@CMSat@@QBEABV?$vector@Vlbool@CMSat@@V?$allocator@Vlbool@CMSat@@@std@@@std@@XZ)
+main.obj : error LNK2001: 无法解析的外部符号 "public: class CMSat::lbool __thiscall CMSat::SATSolver::solve(class std::vector<class CMSat::Lit,class std::allocator<class CMSat::Lit> > const *)" (?solve@SATSolver@CMSat@@QAE?AVlbool@2@PBV?$vector@VLit@CMSat@@V?$allocator@VLit@CMSat@@@std@@@std@@@Z)
+main.obj : error LNK2001: 无法解析的外部符号 "public: void __thiscall CMSat::SATSolver::new_vars(unsigned int)" (?new_vars@SATSolver@CMSat@@QAEXI@Z)
+main.obj : error LNK2001: 无法解析的外部符号 "public: bool __thiscall CMSat::SATSolver::add_clause(class std::vector<class CMSat::Lit,class std::allocator<class CMSat::Lit> > const &)" (?add_clause@SATSolver@CMSat@@QAE_NABV?$vector@VLit@CMSat@@V?$allocator@VLit@CMSat@@@std@@@std@@@Z)
+main.obj : error LNK2001: 无法解析的外部符号 "public: __thiscall CMSat::SATSolver::~SATSolver(void)" (??1SATSolver@CMSat@@QAE@XZ)
+main.obj : error LNK2001: 无法解析的外部符号 "public: __thiscall CMSat::SATSolver::SATSolver(void *,struct std::atomic<bool> *)" (??0SATSolver@CMSat@@QAE@PAXPAU?$atomic@_N@std@@@Z)
+C:\Users\DELL\Desktop\test\Release\test.exe : fatal error LNK1120: 6 个无法解析的外部命令
