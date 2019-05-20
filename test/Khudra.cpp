@@ -27,7 +27,7 @@ vector<int> KhudraFunction(CipherDescription &khudra, vector<int>  input, int &s
 
 int CipherBalancedBit:: KhudraBalancedBit() {
 	SYSTEMTIME st = { 0 };
-	GetLocalTime(&st);  //获取当前时间 可精确到ms
+	GetLocalTime(&st);  //鑾峰彇褰撳墠鏃堕棿 鍙簿纭埌ms
 	printf("%d-%02d-%02d %02d:%02d:%02d\n", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 	cout << "khudra" << endl;
 	vector<int>Lactive_bits;
@@ -65,8 +65,8 @@ int CipherBalancedBit:: KhudraBalancedBit() {
 
 		}
 	}
-	//截止时间	
-	GetLocalTime(&st);  //获取当前时间 可精确到ms
+	//鎴鏃堕棿	
+	GetLocalTime(&st);  //鑾峰彇褰撳墠鏃堕棿 鍙簿纭埌ms
 	printf("%d-%02d-%02d %02d:%02d:%02d\n", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 
 	return 0;
@@ -173,7 +173,7 @@ void KhudraLAndKVectors(CipherDescription cipher, vector<vector<int>> &K, vector
 		//tmpQ.push_back(L[i][Qindex[2]]);
 		//tmpQ.push_back(L[i][Qindex[3]]);
 
-		tmpL = sol.LReturnAllSolu(tmpQ);
+		tmpL = sol.khudraReturnAllSolu(tmpQ);
 		vector<vector<int>> ss = tmpL;
 		for (int j = 0; j < tmpL.size(); j++)
 		{
@@ -374,11 +374,11 @@ CipherDescription generate_new_khudra(int rounds, int n, int startbit, vector<in
 					input_two_F.push_back(startvalue + 4 * i + 4);
 					tmpindex = startvalue + 4 * i + 4;
 				}
-				//右半边F函数
+				//鍙冲崐杈笷鍑芥暟
 				vector<int> ff = KhudraFunction(khudra, input_one_F, tmpindex);
 
 				input_one_F = ff;
-				//左半边F函数
+				//宸﹀崐杈笷鍑芥暟
 				vector<int> ee = KhudraFunction(khudra, input_two_F, tmpindex);
 				input_two_F = ee;
 				startvalue = tmpindex;
@@ -425,11 +425,11 @@ CipherDescription generate_new_khudra(int rounds, int n, int startbit, vector<in
 				input_two_F.push_back(startvalue + 4 * i + 4);
 				tmpindex = startvalue + 4 * i + 4;
 			}
-			//右半边F函数
+			//鍙冲崐杈笷鍑芥暟
 			vector<int> ff = KhudraFunction(khudra, input_one_F, tmpindex);
 
 			input_one_F = ff;
-			//左半边F函数
+			//宸﹀崐杈笷鍑芥暟
 			vector<int> ee = KhudraFunction(khudra, input_two_F, tmpindex);
 			input_two_F = ee;
 			startvalue = tmpindex;
@@ -524,7 +524,7 @@ vector<int> KhudraFunction(CipherDescription &khudra, vector<int>  input, int &s
 			tmpSboxsize.push_back("t" + to_string(4 * j + startvalue + 2));
 			tmpSboxsize.push_back("t" + to_string(4 * j + startvalue + 3));
 			tmpSboxsize.push_back("t" + to_string(4 * j + startvalue + 4));
-			khudra.apply_Sbox(tmps_input, tmps_onput, "Spresent");//输入S盒的变量
+			khudra.apply_Sbox(tmps_input, tmps_onput, "Spresent");//杈撳叆S鐩掔殑鍙橀噺
 			start = 4 * j + startvalue + 4;
 		}
 
