@@ -1137,9 +1137,9 @@ vector<vector<int>>solver::KReturnAllSolu(vector<int> active)
 	SATSolver solvers;
 	create_conditions(solvers);
 	vector<Lit> ban_solution;
-	//´æ´¢ÖĞ¼äÖµ
+	//å­˜å‚¨ä¸­é—´å€¼
 	vector<vector<int>> interSolutions;
-	//´æ´¢¹ı¶ÈÏòÁ¿
+	//å­˜å‚¨è¿‡åº¦å‘é‡
 	vector<vector<int>> middInterSolutions;
 	vector<int> interSolution;
 	clause.clear();
@@ -1209,9 +1209,9 @@ vector<vector<int>>solver::LReturnAllSolu(vector<int> active)
 
 	Lcreate_conditions(solvers);
 	vector<Lit> ban_solution;
-	//´æ´¢ÖĞ¼äÖµ
+	//å­˜å‚¨ä¸­é—´å€¼
 	vector<vector<int>> interSolutions;
-	//´æ´¢¹ı¶ÈÏòÁ¿
+	//å­˜å‚¨è¿‡åº¦å‘é‡
 	vector<vector<int>> middInterSolutions;
 	vector<int> interSolution;
 	clause.clear();
@@ -1277,9 +1277,86 @@ vector<vector<int>>solver::LReturnAllSolu(vector<int> active)
 
 	return  middInterSolutions;
 }
+vector<vector<int>>solver::khudraReturnAllSolu(vector<int> active)
+{
+	SATSolver solvers;
+
+	Lcreate_conditions(solvers);
+	vector<Lit> ban_solution;
+	//å­˜å‚¨ä¸­é—´å€¼
+	vector<vector<int>> interSolutions;
+	//å­˜å‚¨è¿‡åº¦å‘é‡
+	vector<vector<int>> middInterSolutions;
+	vector<int> interSolution;
+	clause.clear();
+	for (int i = 0; i < state_size; i++) 
+	{
+		if (active[i]==1)
+		{
+			clause.push_back(Lit(i, false));
+		}
+		else
+		{
+			clause.push_back(Lit(i, true));
+		}
+	}
+	while (true)
+	{
+
+		lbool ret = solvers.solve(&clause);
+		if (ret != l_True)
+		{
+			//All solutions found.
+			break;
+		}
+
+		if(middInterSolutions.size()>10){
+			break;
+		}
+		interSolution.clear();
+		for (int out = 0; out<state_size; out++)
+		{
+			if (solvers.get_model()[endIndex[out]] == l_True)
+			{
+				//cout<<"1"<<",";
+				interSolution.push_back(1);
+			}
+			else
+			{
+				//cout<<"0"<<",";
+				interSolution.push_back(0);
+			}
+		}
+		vector<vector<int>>::iterator rets;
+		//vector<vector<int>>ssss = middInterSolutions;
+		//vector<int>sds = interSolution;
+		rets = std::find(middInterSolutions.begin(), middInterSolutions.end(), interSolution);
+		if (rets == middInterSolutions.end())
+			middInterSolutions.push_back(interSolution);
+		else {
+			middInterSolutions.erase(rets);
+		}
+		ban_solution.clear();
+		for (uint32_t var = 0; var < solvers.nVars(); var++)
+		{
+			if (solvers.get_model()[var] != l_Undef)
+			{
+				ban_solution.push_back(
+					Lit(var, (solvers.get_model()[var] == l_True) ? true : false));
+			}
+		}
+		solvers.add_clause(ban_solution);
+	}
+
+	//int sizes = middInterSolutions.size();
+	//Redundant(middInterSolutions);
+
+	return  middInterSolutions;
+}
 
 
-// ½«L¼¯ºÏÖĞµÄÔªËØÌí¼Óµ½K¼¯ºÏÖĞ
+
+// å°†Lé›†åˆä¸­çš„å…ƒç´ æ·»åŠ åˆ°Ké›†åˆä¸­
 vector<vector<int>>solver::LSetToKSet(vector<vector<int>> K, vector<vector<int>>L,string name )
 {
 	//vector<vector<int>> tmp;
@@ -1357,7 +1434,7 @@ vector<vector<int>>solver::LSetToKSet(vector<vector<int>> K, vector<vector<int>>
 	return K;
 }
 
-// ½«L¼¯ºÏÖĞ¶àÓàµÄÔªËØÈ¥³ı
+// å°†Lé›†åˆä¸­å¤šä½™çš„å…ƒç´ å»é™¤
 vector<vector<int>>solver::RedundantLset(vector<vector<int>> K, vector<vector<int>>L)
 {
 	sort(L.begin(), L.end());
@@ -1389,7 +1466,7 @@ vector<vector<int>>solver::RedundantLset(vector<vector<int>> K, vector<vector<in
 	return L;
 
 }
-//½«middÖĞµÄÖµÖØĞÂ¸³Öµ¸øinter
+//å°†middä¸­çš„å€¼é‡æ–°èµ‹å€¼ç»™inter
 void solver::AddVector(vector<vector<int>> &inter, vector<vector<int>> &midd)
 {
 	for (int i = 0; i < midd.size(); i++)
@@ -1743,7 +1820,7 @@ bool solver::Is_exist(int bit, vector<int> active)
 
 }
 
-//Í¨¹ıÕæÖµ±í»ñÈ¡ºÏÈ¡·¶Ê½
+//é€šè¿‡çœŸå€¼è¡¨è·å–åˆå–èŒƒå¼
 vector<vector<int>> solver:: getSboxCNF(vector<string> value,int num) 
 {
 	//char arr[LEN];
@@ -1793,11 +1870,11 @@ vector<vector<int>> solver:: getSboxCNF(vector<string> value,int num)
 				}
 				else
 				{
-					//cout << "©·" << (char)(beg++);
+					//cout << "â”“" << (char)(beg++);
 					tmp.push_back(-beg++);
 				}
 				//if (j != 1)
-					//cout << "¡Å";
+					//cout << "âˆ¨";
 			}
 			//cout << ')';
 			result.push_back(tmp);
