@@ -16,6 +16,7 @@ public:
 	void Lcreate_conditions(SATSolver &solvers);
 	vector<vector<int>>KReturnAllSolu(vector<int> active);
 	vector<vector<int>> LReturnAllSolu(vector<int> active);
+	vector<vector<int>> khudraReturnAllSolu(vector<int> active);
 	vector<vector<int>> LSetToKSet(vector<vector<int>> K, vector<vector<int>>L,string name);
 	vector<vector<int>> RedundantLset(vector<vector<int>> K, vector<vector<int>>L);
 	void AddVector(vector<vector<int>> &inter, vector<vector<int>> &midd);
