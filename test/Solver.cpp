@@ -24,8 +24,6 @@ void solver::load_cipher(CipherDescription cip)
 		//self.sbox_cnfs = {}
 }
 
-
-
 void solver::set_rounds(int round) 
 {
 		/*
@@ -153,9 +151,6 @@ void solver::Lcreate_conditions(SATSolver &solvers)
 
 	}
 }
-
-
-
 void solver::apply_three_Lxor(SATSolver &solvers, int target_1, int target_2, int target_3, int source) 
 {
 	clause.clear();
@@ -825,36 +820,6 @@ void solver::apply_Land(SATSolver &solvers, int target_1, int target_2, int sour
 }
 void solver::apply_Lxor(SATSolver &solvers, int target_1, int target_2, int source)
 {
-	/* First move source_2 to target, then apply the following
-	rules on source_1, target :
-	0 0 -> 0 0
-	0 1 -> 0 1
-	1 0 -> 1 0
-	1 0 -> 0 1
-	1 1 -> 1 1
-	"""
-
-	if source_1 == source_2:
-	old_target, new_target = self.get_variables(target)
-	self.addclause([-new_target])
-	return
-	if source_1 != target :
-	self.apply_mov(target, source_2)
-	source = source_1
-	else:
-	source = source_2
-	old_source, new_source = self.get_variables(source)
-	old_target, new_target = self.get_variables(target)
-	self.addclause([-new_source, old_source])
-	self.addclause([new_target, -old_target])
-	self.addclause([-new_source, -new_target, old_target])
-	self.addclause([new_source, new_target, -old_source])
-	self.addclause([-new_target, old_source, old_target])
-	self.addclause([new_source, -old_source, -old_target])*/
-
-	/*int a = target_1;
-	int b = target_2;
-	int c = source;*/
 	clause.clear();
 	clause.push_back(Lit(target_1, true));//true is negated
 	clause.push_back(Lit(target_2, true));

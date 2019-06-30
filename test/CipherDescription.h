@@ -23,8 +23,6 @@ public:
 	void apply_and(string source_1, string source_2, string target, bool description = true);
 	void apply_permutation(vector<string> permutation);
 	void check_permutation(vector<string> permutation);
-	void check_target(string target);
-	void check_source(string source);
 	void set_rounds(int round);
 	void apply_mov(string source, string target, string target_1, bool description = true);
 	void apply_Sbox(vector<string> inpyt, vector<string> output, string sname);

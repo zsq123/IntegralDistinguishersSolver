@@ -20,10 +20,6 @@ CipherDescription::CipherDescription()
 void CipherDescription::apply_xor(string source_1, string source_2, string target, bool description ) 
 {
 	
-		//check_source(source_1);
-		//check_source(source_2);
-		//check_target(target);
-		
 		values.push_back(source_1);
 		values.push_back(source_2);
 		values.push_back(target);
@@ -39,9 +35,6 @@ void CipherDescription::apply_xor(string source_1, string source_2, string targe
 void CipherDescription::apply_threexor(string source_1, string source_2,string source_3, string target, bool description)
 {
 
-	//check_source(source_1);
-	//check_source(source_2);
-	//check_target(target);
 
 	values.push_back(source_1);
 	values.push_back(source_2);
@@ -58,12 +51,7 @@ void CipherDescription::apply_threexor(string source_1, string source_2,string s
 }
 
 void CipherDescription::apply_and(string source_1, string source_2, string target, bool description ) {
-	/*
-	Extend current round transition by application of an AND
-	'''*/
-		//check_source(source_1);
-		//check_source(source_2);
-		//check_target(target);
+	
 		
 		values.push_back(source_1);
 		values.push_back(source_2);
@@ -79,11 +67,7 @@ void CipherDescription::apply_and(string source_1, string source_2, string targe
 
 void CipherDescription::apply_permutation(vector<string> permutation) 
 {
-	/*
-	Extend current round transition by a permutation
-
-	A permutation must be given as a list of state variables.
-	'''*/
+	
 	check_permutation(permutation);
 	permutation.push_back("'PERM'");
 	transition.push_back(permutation);
@@ -319,46 +303,6 @@ void CipherDescription::apply_ConstantmodAdd(vector<int> a_inputvalue, vector<in
 	endindex = lasttmp + 4;
 }
 
-void CipherDescription::check_target(string target) 
-{
-	if (target[0] == 's') {
-		target.erase(0);
-		int number = stoi(target);
-		if (number >= state_size) {
-			return;
-		}
-	}
-	else if( target[0] == 't'|| target[0] == 'b') {
-		temporaries.push_back(target);
-		}
-	else{
-		return;
-		}
-	
-}
-
-void CipherDescription::check_source(string source) 
-{
-	/*
-		Check that a given source variable is valid and available
-		'''
-		*/
-		if (source[0] == 's')
-		{
-			source.erase(0);
-			int number = stoi(source);
-				if (number >= state_size)
-				return;
-		}
-		else if (source[0] == 't')
-		{
-			vector<string>::iterator it;
-			it = find(temporaries.begin(), temporaries.end(), source);
-			if (it == temporaries.end()) { return; }
-		}
-		else { return; }
-			
-}
 
 void  CipherDescription::check_permutation(vector<string> permutation) 
 {
